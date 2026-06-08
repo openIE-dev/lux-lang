@@ -2,6 +2,13 @@
 
 **A reactive, energy-aware language that compiles to flowG.**
 
+[![Release](https://github.com/openIE-dev/lux-lang/actions/workflows/release.yml/badge.svg)](https://github.com/openIE-dev/lux-lang/actions/workflows/release.yml)
+[![Quality](https://github.com/openIE-dev/lux-lang/actions/workflows/quality.yml/badge.svg)](https://github.com/openIE-dev/lux-lang/actions/workflows/quality.yml)
+[![Docs](https://github.com/openIE-dev/lux-lang/actions/workflows/docs.yml/badge.svg)](https://openie-dev.github.io/lux-lang)
+[![crates.io](https://img.shields.io/crates/v/openie-lux.svg)](https://crates.io/crates/openie-lux)
+[![License](https://img.shields.io/badge/license-BSL--1.1-blue.svg)](./LICENSE)
+
+
 Lux is a general-purpose programming language designed around the same substrate as the openIE-dev compute ecosystem. Functions, components, views, stores — all lower to typed FunctionGraphs in [flowG](https://github.com/openIE-dev/flow-g), then dispatch across CPU / Metal / WGPU / WASM.
 
 This is the **public release surface**. Source is private at [`openIE-dev/lux-lang-core`](https://github.com/openIE-dev/lux-lang-core) — 25 crates including the parser, type system, codegen, runtime, and the lux-worlds family.

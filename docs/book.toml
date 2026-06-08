@@ -1,0 +1,21 @@
+[book]
+title = "Lux"
+authors = ["David Charlot <david@openie.dev>"]
+description = "Lux — reactive, energy-aware programming language compiling to flowG."
+language = "en"
+multilingual = false
+src = "src"
+
+[output.html]
+default-theme = "navy"
+preferred-dark-theme = "navy"
+git-repository-url = "https://github.com/openIE-dev/lux-lang"
+git-repository-icon = "fa-github"
+edit-url-template = "https://github.com/openIE-dev/lux-lang/edit/main/docs/{path}"
+site-url = "/lux-lang/"
+
+[output.html.search]
+enable = true
+
+[output.html.fold]
+enable = true

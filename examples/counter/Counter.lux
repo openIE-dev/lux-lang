@@ -1,0 +1,9 @@
+# Lux reactive counter — signal-driven state, button increments, h2 displays.
+
+component Counter():
+    let count = signal(0)
+
+    view:
+        h2: "Count: " + count.text()
+        button(on:click: count.set(count.get() + 1)):
+            "Increment"

@@ -1,0 +1,5 @@
+# Lux hello world — a component that takes a name and renders a greeting.
+
+component Hello(name: String):
+    view:
+        h1: "Hello, " + name

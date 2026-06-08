@@ -1,0 +1,28 @@
+[package]
+name = "openie-lux"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.74"
+description = "Reactive, energy-aware programming language compiling to flowG. Stub installer; `cargo binstall openie-lux` fetches the real binary."
+license = "BSL-1.1"
+repository = "https://github.com/openIE-dev/lux-lang"
+homepage = "https://openie-dev.github.io/lux-lang"
+documentation = "https://openie-dev.github.io/lux-lang"
+readme = "../../README.md"
+keywords = ["energy", "compiler", "rust", "cli"]
+categories = ["command-line-utilities"]
+
+# Standalone package — not in any workspace
+[workspace]
+
+[[bin]]
+name = "openie-lux"
+path = "src/main.rs"
+
+[package.metadata.binstall]
+pkg-url = "{ repo }/releases/download/v{ version }/openie-lux-{ version }-{ target }.{ archive-suffix }"
+pkg-fmt = "tgz"
+bin-dir = "openie-lux-{ version }-{ target }/{ bin }{ binary-ext }"
+
+[package.metadata.binstall.overrides.x86_64-pc-windows-msvc]
+pkg-fmt = "zip"

@@ -101,7 +101,7 @@ jobs:
             cp "joulesperbit/target/${{ matrix.target }}/release/${BIN_NAME}" "$STAGE/$BASE/"
           fi
 
-          cp LICENSE README.md "$STAGE/$BASE/" 2>/dev/null || true
+          cp LICENSE-MIT LICENSE-APACHE COPYRIGHT README.md "$STAGE/$BASE/" 2>/dev/null || true
 
           cd "$STAGE"
           if [ "${{ matrix.archive }}" = "zip" ]; then

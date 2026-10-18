@@ -1,0 +1,105 @@
+# Lux component tour: composition, props, slots, scoped styles, and
+# if/for inside view blocks.
+#
+# Build: lux build Tour.lux --target wasm -o tour
+# Serve: python3 -m http.server -d tour 8080   (then open localhost:8080)
+
+# A module-level style: global, usable from any view as `@page`.
+style page:
+    max_width = "560px"
+    margin = "40px auto"
+    font_family = "system-ui, sans-serif"
+
+# ── Badge ─────────────────────────────────────────────────────────
+# A leaf component with two props. `if`/`else` in the view picks the
+# element; the `style` blocks below are scoped to Badge.
+component Badge(label, tone):
+    view:
+        if tone == "done":
+            span @badge_done "{label}"
+        else:
+            span @badge "{label}"
+
+    style badge:
+        font_size = "12px"
+        padding = "2px 8px"
+        border_radius = "999px"
+        background = "#fef3c7"
+        color = "#92400e"
+
+    style badge_done:
+        font_size = "12px"
+        padding = "2px 8px"
+        border_radius = "999px"
+        background = "#dcfce7"
+        color = "#166534"
+
+# ── Card ──────────────────────────────────────────────────────────
+# A layout component: whatever the caller nests under `Card ...:` renders
+# where `slot` sits.
+component Card(title):
+    view:
+        section @card:
+            h2 @card_title "{title}"
+            slot
+
+    style card:
+        border = "1px solid #374151"
+        border_radius = "12px"
+        padding = "16px 20px"
+        margin_bottom = "16px"
+
+    style card_title:
+        font_size = "14px"
+        text_transform = "uppercase"
+        letter_spacing = "0.05em"
+        color = "#9ca3af"
+        margin = "0 0 12px"
+
+# ── TaskRow ───────────────────────────────────────────────────────
+# Composition: TaskRow renders a Badge, passing values derived from its
+# own props.
+component TaskRow(name, done):
+    view:
+        div @row:
+            span @row_name "{name}"
+            if done:
+                Badge label="done" tone="done"
+            else:
+                Badge label="open" tone="open"
+
+    style row:
+        display = "flex"
+        justify_content = "space-between"
+        align_items = "center"
+        padding = "6px 0"
+
+    style row_name:
+        font_size = "15px"
+
+# ── App ───────────────────────────────────────────────────────────
+app Tour:
+    let tasks = [
+        {name: "Write the parser", done: true},
+        {name: "Lower to flowG", done: true},
+        {name: "Ship the component tour", done: false}
+    ]
+    let mut show_notes = signal(false)
+
+    view:
+        div @page:
+            h1 "Lux component tour"
+
+            # `for` renders one TaskRow per task; TaskRow's own `if`/`else`
+            # picks the badge.
+            Card title="Tasks":
+                for task in tasks:
+                    TaskRow name=task.name done=task.done
+
+            # A view-level `if`/`else` on a signal re-renders when it changes.
+            Card title="Notes":
+                button "Toggle notes" on:click -> show_notes = not show_notes
+                if show_notes:
+                    p "Styles declared inside a component only match that component's elements."
+                else:
+                    p "Notes are hidden."

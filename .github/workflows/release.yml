@@ -37,6 +37,9 @@ jobs:
             # Native Intel runner: lux-cli pulls in openssl-sys, which can't
             # find an x86_64 OpenSSL when cross-compiling on arm64 macos-14.
             os: macos-15-intel
+            # The 4-core / 14 GB Intel runner got SIGTERM (exit 143) mid-build
+            # with full parallelism (v0.2.1 run 39145203470); cap rustc jobs.
+            cargo_jobs: 2
           - target: x86_64-unknown-linux-gnu
             os: ubuntu-latest
           - target: aarch64-unknown-linux-gnu
@@ -99,7 +102,11 @@ jobs:
         # -p lux-cli: avoid unifying features across every workspace member.
         # No --locked: the stub step above adds placeholder crates, which
         # rewrites Cargo.lock (joulesperbit's own lux CI builds the same way).
-        run: cargo build --release --target ${{ matrix.target }} -p lux-cli --bin lux
+        env:
+          CARGO_BUILD_JOBS: ${{ matrix.cargo_jobs || '' }}
+        run: |
+          [ -n "$CARGO_BUILD_JOBS" ] || unset CARGO_BUILD_JOBS
+          cargo build --release --target ${{ matrix.target }} -p lux-cli --bin lux
 
       - name: Smoke test (native targets)
         shell: bash

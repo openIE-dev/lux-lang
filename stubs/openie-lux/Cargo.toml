@@ -1,6 +1,6 @@
 [package]
 name = "openie-lux"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 rust-version = "1.74"
 description = "Reactive, energy-aware programming language compiling to flowG. Stub installer; `cargo binstall openie-lux` fetches the real binary."

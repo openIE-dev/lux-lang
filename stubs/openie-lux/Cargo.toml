@@ -20,7 +20,7 @@ name = "openie-lux"
 path = "src/main.rs"
 
 [package.metadata.binstall]
-pkg-url = "{ repo }/releases/download/v{ version }/openie-lux-{ version }-{ target }.{ archive-suffix }"
+pkg-url = "{ repo }/releases/download/v{ version }/openie-lux-{ version }-{ target }{ archive-suffix }"
 pkg-fmt = "tgz"
 bin-dir = "openie-lux-{ version }-{ target }/{ bin }{ binary-ext }"
 

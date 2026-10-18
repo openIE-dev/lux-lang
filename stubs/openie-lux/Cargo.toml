@@ -1,6 +1,6 @@
 [package]
 name = "openie-lux"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 rust-version = "1.74"
 description = "Reactive, energy-aware programming language compiling to flowG. Stub installer; `cargo binstall openie-lux` fetches the real binary."
@@ -16,7 +16,9 @@ categories = ["command-line-utilities"]
 [workspace]
 
 [[bin]]
-name = "openie-lux"
+# The release archives ship the real CLI as `lux`; binstall looks for { bin },
+# so the stub binary must have the same name.
+name = "lux"
 path = "src/main.rs"
 
 [package.metadata.binstall]

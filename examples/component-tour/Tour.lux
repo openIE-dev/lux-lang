@@ -84,6 +84,7 @@ app Tour:
         {name: "Lower to flowG", done: true},
         {name: "Ship the component tour", done: false}
     ]
+    let mut show_done = signal(true)
     let mut show_notes = signal(false)
 
     view:
@@ -91,10 +92,13 @@ app Tour:
             h1 "Lux component tour"
 
             # `for` renders one TaskRow per task; TaskRow's own `if`/`else`
-            # picks the badge.
+            # picks the badge. The `if` inside the loop mixes a signal with
+            # the loop variable, so the button filters out finished tasks.
             Card title="Tasks":
+                button "Toggle finished tasks" on:click -> show_done = not show_done
                 for task in tasks:
-                    TaskRow name=task.name done=task.done
+                    if show_done or not task.done:
+                        TaskRow name=task.name done=task.done
 
             # A view-level `if`/`else` on a signal re-renders when it changes.
             Card title="Notes":

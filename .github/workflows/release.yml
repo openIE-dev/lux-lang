@@ -88,7 +88,9 @@ jobs:
         shell: bash
         working-directory: joulesperbit
         # -p lux-cli: avoid unifying features across every workspace member.
-        run: cargo build --locked --release --target ${{ matrix.target }} -p lux-cli --bin lux
+        # No --locked: the stub step above adds placeholder crates, which
+        # rewrites Cargo.lock (joulesperbit's own lux CI builds the same way).
+        run: cargo build --release --target ${{ matrix.target }} -p lux-cli --bin lux
 
       - name: Smoke test (native targets)
         shell: bash

@@ -72,6 +72,13 @@ jobs:
         with:
           targets: ${{ matrix.target }}
 
+      - name: Add target to the pinned toolchain
+        shell: bash
+        working-directory: joulesperbit
+        # joulesperbit pins its toolchain in rust-toolchain.toml, so the target
+        # added to stable above isn't the one cargo uses here.
+        run: rustup target add ${{ matrix.target }}
+
       - name: Install Python (workspace stub script)
         uses: actions/setup-python@v5
         with:
@@ -102,10 +109,13 @@ jobs:
             if arch -x86_64 /usr/bin/true 2>/dev/null; then RUN="arch -x86_64 $BIN"; else echo "no Rosetta on this runner; skipping x86_64 run"; exit 0; fi
           fi
           $RUN --version
-          $RUN check examples/counter/Counter.lux
+          # Use the counter example from the source tree being released (the
+          # parse-gated examples/ in joulesperbit), not this repo's docs copy.
+          EX=joulesperbit/examples/04-counter/main.lux
+          $RUN check "$EX"
           # Compile the counter to HTML (informational: the release smoke test
           # that gates publishing is run against the downloaded assets).
-          if $RUN build examples/counter/Counter.lux -t html -o "$RUNNER_TEMP/counter.html"; then
+          if $RUN build "$EX" -t html -o "$RUNNER_TEMP/counter.html"; then
             ls -la "$RUNNER_TEMP/counter.html" || true
           else
             echo "::warning::lux build -t html failed for the counter example"

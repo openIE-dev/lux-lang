@@ -57,7 +57,7 @@ component Hello(name: String):
 ```
 
 ```bash
-openie-lux run examples/hello/Hello.lux
+lux run examples/hello/Hello.lux
 ```
 
 See [`examples/`](./examples/) for the language tour, server-rendered components, reactive apps, and the lux → flowG lowering pipeline.

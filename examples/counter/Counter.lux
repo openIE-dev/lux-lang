@@ -1,9 +1,14 @@
-# Lux reactive counter — signal-driven state, button increments, h2 displays.
+# Lux reactive counter: signal-driven state; the buttons update it and the
+# heading re-renders.
+#
+# Run:   lux run Counter.lux
+# Build: lux build Counter.lux --target html -o counter.html
 
-component Counter():
-    let count = signal(0)
+app Counter:
+    let mut count = signal(0)
 
     view:
-        h2: "Count: " + count.text()
-        button(on:click: count.set(count.get() + 1)):
-            "Increment"
+        column:
+            h2 "Count: {count}"
+            button "Increment" on:click -> count = count + 1
+            button "Reset" on:click -> count = 0

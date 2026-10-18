@@ -3,7 +3,7 @@
 A small tour of Lux's component features: props, slots, scoped styles, conditional rendering, list rendering.
 
 ```bash
-openie-lux run Tour.lux
+lux run Tour.lux
 ```
 
 What this shows:
